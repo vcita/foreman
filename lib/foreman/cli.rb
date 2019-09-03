@@ -27,7 +27,7 @@ class Foreman::CLI < Thor
   method_option :timestamp,   :type => :boolean, :default => true, :desc => "Include timestamp in output"
 
   # Vcita
-  method_option :hide_prefix, :type => :boolean, :aliases => "-s", :default => false, :desc => "Hide process name prefix in output"
+  class_option :hide_prefix, :type => :boolean, :aliases => "-s", :default => false, :desc => "Hide process name prefix in output"
   # Vcita
 
   class << self
