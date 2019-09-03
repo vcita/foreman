@@ -55,12 +55,17 @@ class Foreman::Engine::CLI < Foreman::Engine
 
   def output(name, data)
     data.to_s.lines.map(&:chomp).each do |message|
-      output  = ""
-      output += $stdout.color(@colors[name.split(".").first].to_sym)
-      output += "#{Time.now.strftime("%H:%M:%S")} " if options[:timestamp]
-      output += "#{pad_process_name(name)} | "
-      output += $stdout.color(:reset)
-      output += message
+      if options[:hide_prefix]
+        output = message
+      else
+        output  = ""
+        output += $stdout.color(@colors[name.split(".").first].to_sym)
+        output += "#{Time.now.strftime("%H:%M:%S")} " if options[:timestamp]
+        output += "#{pad_process_name(name)} | "
+        output += $stdout.color(:reset)
+        output += message
+      end
+
       $stdout.puts output
       $stdout.flush
     end
